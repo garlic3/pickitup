@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pickitup.mapper.user.CompanyMapper">
+    <!-- 단체 회원 가입-->
+    <insert id="insert">
+        INSERT INTO TBL_COMPANY
+        (NUM, EMAIL, PASSWORD,  NICKNAME, PHONE, BUSINESS_PHONE, ADDRESS,ADDRESS_DETAIL, BUSINESS_NUMBER, REGIST_DATE, PROFILE_FILE_NAME, PROFILE_UPLOAD_PATH)
+        VALUES(SEQ_COMPANY.NEXTVAL, #{email}, #{password}, #{nickname}, #{phone}, #{businessPhone}, #{address},#{addressDetail}, #{businessNumber} , SYSDATE, #{profileFileName}, #{profileUploadPath})
+    </insert>
+
+    <!-- 단체 회원 정보 조회  -->
+    <select id="getDetail" resultType="companyVO">
+        SELECT NUM, EMAIL, PASSWORD, NICKNAME, PHONE, BUSINESS_PHONE, ADDRESS, BUSINESS_NUMBER, REGIST_DATE, PROFILE_FILE_NAME, PROFILE_UPLOAD_PATH, ADDRESS_DETAIL
+        FROM TBL_COMPANY
+        WHERE NUM=#{num}
+    </select>
+
+    <!-- 단체 회원 정보 수정 -->
+    <update id="update" parameterType="companyVO">
+    UPDATE TBL_COMPANY
+    SET PHONE = #{phone}, BUSINESS_PHONE=#{businessPhone}, ADDRESS=#{address}, ADDRESS_DETAIL= #{addressDetail}
+    WHERE NUM = #{num}
+    </update>
+
+    <!-- 단체 로그인   -->
+    <select id="login" resultType="_int">
+        SELECT NUM, NICKNAME
+        FROM TBL_COMPANY
+        WHERE EMAIL=#{email} AND PASSWORD=#{password}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

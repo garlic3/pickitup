@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pickitup.mapper.project.projectFile.ProjectMapper">
+
+
+    <!-- 프로젝트 전체 목록   -->
+    <select id="getList" resultType="projectVO">
+        SELECT NUM, TITLE, CONTENT, COURSE, TERRAIN, POINT, APPROVAL, STARTTIME, ENDTIME, START_ADDRESS, END_ADDRESS, DISTANCE, QR, REGIST_DATE, UPDATE_DATE, STATUS, COMPANY_NUM
+        FROM TBL_PROJECT
+    </select>
+
+
+    <!--  특정 유저가 작성한 프로젝트 목록 -->
+    <select id="getUserProjectList" resultType="projectVO">
+    SELECT NUM, TITLE, CONTENT, COURSE, TERRAIN, POINT, APPROVAL, START_TIME, END_TIME, START_ADDRESS, END_ADDRESS, DISTANCE, START_QR, END_QR, REGIST_DATE, UPDATE_DATE, STATUS, COMPANY_NUM
+    FROM TBL_PROJECT
+    WHERE COMPANY_NUM = #{companyNum}
+    </select>
+
+
+    <!-- 프로젝트 상세 정보  -->
+    <select id="getDetail" resultType="projectDTO">
+     SELECT TP.NUM, TP.TITLE, TP.CONTENT, TP.COURSE, TP.TERRAIN, TP.POINT, TP.START_TIME, TP.END_TIME, TP.START_ADDRESS,
+    TP.END_ADDRESS, TP.START_ADDRESS_DETAIL, TP.END_ADDRESS_DETAIL, TP.DISTANCE, TP.COMPANY_COMMENT, TP.SUMMARY, TP.COMPANY_NUM,
+    TC.NICKNAME
+    FROM TBL_PROJECT TP JOIN TBL_COMPANY TC
+    ON TP.COMPANY_NUM = TC.NUM
+    WHERE TP.NUM = #{num}
+    </select>
+
+
+    <!-- 프로젝트 등록  -->
+    <insert id="insert" parameterType="projectVO">
+        INSERT INTO TBL_PROJECT
+        <selectKey keyProperty="num" resultType="long" order="BEFORE">
+            SELECT SEQ_PROJECT.NEXTVAL FROM DUAL
+        </selectKey>
+        (NUM, TITLE, CONTENT, COURSE, TERRAIN, POINT, APPROVAL, START_TIME, END_TIME, START_ADDRESS, END_ADDRESS, DISTANCE, START_QR, REGIST_DATE, UPDATE_DATE, STATUS, COMPANY_NUM, END_QR,
+        START_ADDRESS_DETAIL, END_ADDRESS_DETAIL, COMPANY_COMMENT, SUMMARY)
+        VALUES(SEQ_PROJECT.NEXTVAL, #{title}, #{content}, #{course}, #{terrain}, #{point}, '0',
+        TO_DATE(#{startTime},'yyyy-mm-dd
+        hh24:mi:ss'),TO_DATE(#{endTime},'yyyy-mm-dd hh24:mi:ss'), #{startAddress}, #{endAddress}, #{distance}, SYSDATE, SYSDATE, '1', #{companyNum}, #{startAddressDetail}, #{endAddressDetail},
+        #{companyComment}, #{summary})
+    </insert>
+
+    <!-- 프로젝트 수정  -->
+    <update id="update" parameterType="projectVO">
+        UPDATE TBL_PROJECT
+        SET
+        TITLE = #{title}, CONTENT = #{content}, COURSE = #{course}, TERRAIN = #{terrain}, POINT = #{point}, APPROVAL = #{approval}, STARTTIME = #{startTime} , ENDTIME = #{endTime},
+        START_ADDRESS = #{startAddress}, END_ADDRESS = #{endAddress}, DISTANCE = #{distance}, QR = #{qr}, UPDATE_DATE = SYSDATE, STATUS = #{status}
+        WHERE NUM = #{num}
+    </update>
+
+
+    <!-- 프로젝트 삭제 -->
+    <delete id="delete" parameterType="long">
+       DELETE FROM TBL_PROJECT WHERE NUM = #{num}
+    </delete>
+
+
+    <!-- 프로젝트 찜순 목록(상위 10개)   -->
+    <select id="getListJJim" resultType="projectVO">
+    <![CDATA[
+
+
+
+                        --         SELECT NUM, TITLE, , JJIM_COUNT
+                        --         FROM (
+                        --             SELECT * FROM TBL_PROJECT  ORDER BY JJIM_COUNT DESC
+                        --         )
+                        --         WHERE ROWNUM <=10
+
+                  SELECT NUM, TITLE, START_TIME, J.JJIM_COUNT FROM TBL_PROJECT TP JOIN (
+                SELECT COUNT(NUM) JJIM_COUNT, PROJECT_NUM  FROM TBL_JJIM
+                GROUP BY PROJECT_NUM
+                ) J ON TP.NUM  = J.PROJECT_NUM
+                ORDER BY JJIM_COUNT DESC
+
+
+
+        ]]>
+    </select>
+
+    <!-- 프로젝트 포인트순 목록(상위 10개)   -->
+    <select id="getListPoint" resultType="projectVO">
+    <![CDATA[
+
+
+
+                                SELECT NUM, TITLE, project_Date, POINT
+                                FROM (
+                                    SELECT * FROM TBL_PROJECT  ORDER BY POINT DESC
+                                )
+                                WHERE ROWNUM <=10
+
+
+
+        ]]>
+    </select>
+
+    <!-- 프로젝트 참가자순 목록   -->
+    <select id="getListApply" resultType="projectVO">
+    <![CDATA[
+
+
+
+                            select *
+                            from(
+                            SELECT * FROM
+                                (SELECT PROJECT_NUM, COUNT(PROJECT_NUM) APPLYCOUNT  FROM TBL_APPLY a
+                                GROUP BY a.PROJECT_NUM) a JOIN TBL_PROJECT p
+                                ON a.PROJECT_NUM = p.NUM
+                                ORDER BY APPLYCOUNT DESC)
+                                WHERE ROWNUM <=10
+
+
+
+        ]]>
+    </select>
+
+    <select id="getUserProjectTotal" resultType="_int">
+        SELECT COUNT(NUM)
+        FROM TBL_PROJECT
+        WHERE COMPANY_NUM = #{companyNum}
+    </select>
+
+</mapper>
+

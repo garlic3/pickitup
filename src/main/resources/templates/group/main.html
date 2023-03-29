@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/groupPage.css"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+</head>
+<body>
+<div class="main">
+    <div class="groupPageFrame">
+        <div class="groupPageTitleFrame">
+            <div class="groupPageTitleForm">
+                <div class="groupPageTitleBox">
+                    <header class="groupPageHeaderFrame">
+                        <div class="groupPageHeaderForm">
+                            <div class="groupPageHeaderBox">
+                                <span class="material-symbols-outlined">directions_walk</span>
+                                <a href="#" class="groupPageHeader">Plogger Center</a>
+                                <div class="htBoundary"></div>
+                                <div class="groupPageProfileFrame">
+                                    <div class="groupPageProfileBox">
+                                        <div class="groupPageProfileForm">
+                                            <div class="groupPageProfileContainer">
+                                                <picture class="groupPageProfile">
+                                                    <source srcset="/static/images/chun2.png"
+                                                            media="all and (min-width: 1024px)">
+                                                    <img src="/static/images/chun2.png" class="profileImage" alt="">
+                                                </picture>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="boundary"></div>
+            </div>
+        </div>
+        <div class="groupPageBodyFrame">
+            <div class="groupPageSidebarFrame">
+                <div class="groupPageSidebarForm">
+                    <div class="groupPageSidebarList">
+                        <div class="groupPageSidebar">
+                            <div class="groupPageSidebars">
+                                <div class="sNoticeFrame">
+                                    <div class="sNoticeForm">
+                                        <div class="sNoticeBox">
+                                            <span class="material-symbols-outlined" id="gfSize">notifications</span>
+                                            <div class="margin"></div>
+                                            <a class="sTitle" href="notice.html">공지사항</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sGroupInfoFrame">
+                                    <div class="sGroupInfoForm">
+                                        <div class="sGroupInfoBox">
+                                            <span class="material-symbols-outlined" id="gfSize">group</span>
+                                            <div class="margin"></div>
+                                            <!-- 유저 정보 -->
+                                            <a class="sTitle" href="/group/modify">단체 정보</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sProjectFrame">
+                                    <div class="sProjectForm">
+                                        <div class="sProjectTitleForm">
+                                            <div class="sProjectTitleBox">
+                                                <span class="material-symbols-outlined" id="gfSize">list</span>
+                                                <div class="margin"></div>
+                                                <a class="sTitle" href="main.html">프로젝트</a>
+                                            </div>
+                                        </div>
+                                        <span id="listClose" class="material-symbols-outlined show">expand_less</span>
+                                    </div>
+                                </div>
+                                <div class="sProjectContainer">
+                                    <a class="sProjectList" href="main.html">전체 플로깅</a>
+                                </div>
+                                <div class="sGuideFrame">
+                                    <div class="sGuideForm">
+                                        <div class="sGuideBox">
+                                            <span class="material-symbols-outlined" id="gfSize">help</span>
+                                            <div class="margin"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sideBarBoundary"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 여기까지 사이드바 입니다. -->
+            <div class="groupPageMainFrame">
+                <div class="groupPageMainForm">
+                    <div class="groupPageContainer">
+                        <div class="bodyTitleFrame">
+                            <h3 class="bodyTitle">프로젝트</h3>
+                            <a href="#" class="addProjectFrame">
+                                <button class="addProjectBtn">
+                                <span class="addProjectForm">
+                                    <span class="addProjectImg">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </span>
+                                    <div class="addBoundary"></div>
+                                    <a class="addProjectText">프로젝트 만들기</a>
+                                </span>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="projectListFrame">
+                            <table id="projectList">
+                                <tr class="category">
+                                    <td>
+                                        <label class="listCheckBox">
+                                            <span class="material-symbols-outlined" id="checkBoxBtn">check_box_outline_blank</span>
+                                            <input type="checkbox" class="allCheck">
+                                        </label>
+                                    </td>
+
+                                    <td>
+                                        <div>
+                                            <span>제목</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span>승인상태</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span>지형</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span>장소 / 코스</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span>포인트</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>생성일</p>
+
+
+                                        </div>
+                                    </td>
+                                    <td><span class="material-symbols-outlined">arrow_drop_up</span></td>
+
+
+                                </tr>
+
+                                <!-- 체크박스, 제목, 승인상태, 지형, 장소/코스, 포인트, 생성일, 더보기-->
+                                <tr th:each="project:${projectList}">
+                                    <td>
+                                        <label class="listCheckBox sb">
+                                            <span class="material-symbols-outlined" id="checkBoxBtn">check_box_outline_blank</span>
+                                            <input type="checkbox" class="allCheck">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <p class="sbTitle"
+                                           th:text="${project.title}"></p>
+                                    </td>
+                                    <td>
+                                        <div class="sbStateForm sb">
+                                            <p class="sbState" id="agreeState"
+                                               th:if="${project.approval.equals('0')}"
+                                               th:text="|승인대기|"></p>
+                                            <p class="sbState" id="agreeState"
+                                               th:if="${project.approval.equals('1')}"
+                                               th:text="|승인완료|"></p>
+                                            <p class="sbState" id="agreeState"
+                                               th:if="${project.approval.equals('2')}"
+                                               th:text="|승인거절|"></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="sbTerrainForm sb">
+                                            <p class="sbTerrain"
+                                               th:if="${project.terrain.equals('M')}" th:text="|산|"></p>
+                                            <p class="sbTerrain"
+                                               th:if="${project.terrain.equals('S')}" th:text="|바다|"></p>
+                                            <p class="sbTerrain"
+                                               th:if="${project.terrain.equals('G')}" th:text="|평지|"></p>
+                                            <p class="sbTerrain"
+                                               th:if="${project.terrain.equals('E')}" th:text="|기타|"></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="sbCourseFrame sb">
+                                            <p class="sbCousre"
+                                               th:if="${project.course.equals('C')}" th:text="|코스|"></p>
+                                            <p class="sbCousre"
+                                               th:if="${project.course.equals('L')}" th:text="|장소|"></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="sbPointFrame sb">
+                                            <p class="sbPoint"
+                                               th:text="${project.point}"></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="sbDateFrame sb">
+                                            <p class="sbDate"
+                                               th:text="${project.registDate}"></p>
+                                        </div>
+                                    </td>
+                                    <td><a class="sb">상세보기</a></td>
+                                    <td><span class="sb applicantList" th:id="${project.num}">지원 명단 보기</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="applyListFrame">
+                            <table id="applyList">
+                                <tr class="category">
+                                    <div class="showListHeader3">
+                                        <!--                                        체크박스, 이름, 전화번호, 신청날짜, 출발시각, 도착시각, 완료여부-->
+                                        <td>
+                                            <label class="listCheckBox">
+                                                <span class="material-symbols-outlined" id="checkBoxBtn">check_box_outline_blank</span>
+                                                <input type="checkbox" class="allCheck">
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <span>이름</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <span>전화번호</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <span>신청날짜</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <span>출발 시각</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <span>도착 시각</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <p>완료여부</p>
+                                            </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</table>
+</div>
+
+<div class="big-width" style="text-align: center">
+    <a class="changePage" th:href="*{startPage - 1}" th:if="*{prev}"><code>&lt;</code></a>
+    <th:block th:each="num:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+        <code th:if="${num == pageDTO.criteria.pageNum}" th:text="${num}"></code>
+        <a class="changePage" th:href="${num}"
+           th:unless="${num == pageDTO.criteria.pageNum}"><code th:text="${num}"></code></a>
+    </th:block>
+    <a class="changePage" th:href="*{endPage + 1}" th:if="*{next}"><code>&gt;</code></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div id="qrModal" class="qrModal-overlay">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div style="margin-left: 50px; display: flex;">
+            <p class="close">&times;</p>
+            <div style="display: flex;">
+                <div>
+                    <p class="qrtitle"> 출발QR</p>
+                    <div class="qrImg" id="qrcode"></div>
+                </div>
+                <div>
+                    <p class="qrtitle"> 도착QR</p>
+                    <div class="qrImg" id="qrcode2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+<!-- <div class="footerBoundary"></div> -->
+<footer class="groupPageFooter">
+    <!-- <div class="boundaryLine"></div> -->
+    <div class="footerFrame">
+
+    </div>
+</footer>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/qrcode.js"></script>
+
+<script>
+
+    let companyNum = [[${companyNum}]];
+
+
+    $('.addProjectBtn').on("click", function () {
+        location.href = "/project/createStep?num=" + companyNum;
+
+    })
+
+    // 신청목록
+    $('.applicantList').on("click", function (e) {
+        let projectNum = $(this).attr("id");
+        console.log('들어옴');
+        console.log(projectNum);
+        $.ajax({
+            url: "/project/apply/list/" + projectNum,
+            type: "get",
+            success: function (applies) {
+                showApplyList(applies);
+            }
+        });
+        $('.applierListFrame').show();
+        $('#projectList').hide();
+        $('.showListPagingFrame').hide();
+
+    });
+
+    function showApplyList(applies) {
+        let str = "";
+        $(applies).each(function (i, apply) {
+            str += "<tr class=\"sb\"><td>"
+            str += "<label class=\"listCheckBox\"><span class=\"material-symbols-outlined\" id=\"checkBoxBtn\">check_box_outline_blank</span>"
+            str += "<input type=\"checkbox\" class=\"allCheck\">"
+            str += "</label>"
+            str += "</td>"
+            str += "<td>"
+            str += "<div>"
+            str += "<span>" + apply.name + "</span>"
+            str += "</div>"
+            str += "</td>"
+            str += "<td>"
+            str += "<div>"
+            str += "<span>" + apply.phone + "</span>"
+            str += "</div>"
+            str += "</td>"
+            str += "<td>"
+            str += "<div>"
+            str += "<span>" + apply.registDate + "</span>"
+            str += "</div></td><td><div>"
+            if (apply.startTime == null) {
+                str += "<p class=\"sbDate\">출발 대기&nbsp</p>";
+            } else {
+                str += "<p class=\"sbDate\">" + apply.startTime + "</p>";
+            }
+            str += "</div></td><td><div>"
+            if (apply.endTime == null) {
+                str += "<p class=\"sbDate\">도착 대기</p>";
+            } else {
+                str += "<p class=\"sbDate\">" + apply.endTime + "</p>";
+                str += "</div></td><td><div>"
+                if (apply.completion == '3') {
+                    str += "<p class=\"sbDate\">완료</p>";
+                } else {
+                    str += "<p class=\"sbDate\">미진행</p>";
+                }
+                str += "</div></td></div></tr>"
+            }
+        })
+        $('#applyList').append(str);
+
+    }
+
+    // 버그 수정 필요
+    $('#closeBtn').on("click", function () {
+        $('.applierListFrame').hide();
+        $('#projectList').show();
+        $('.showListPagingFrame').show();
+    });
+
+    $('.deleteProjectBtn').on("click", function () {
+        if (confirm("해당 프로젝트를 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "/project/remove/" + projectNum,
+                type: "get",
+                success: function (applies) {
+                    alert('프로젝트가 삭제되었습니다');
+                }
+            });
+        }
+    })
+
+
+    // 모집자가 완료버튼 클릭시 -> 완료처리
+    function finishUser(btn) {
+        let num = btn.id;
+        $.ajax({
+            url: "/project/apply/finish/" + num,
+            type: "get"
+        });
+    }
+
+
+    function makeQr(id, qr) {
+        let lo = $(id).attr('id');
+        console.log(lo);
+        console.log(qr);
+        var qrcode = new QRCode(document.getElementById(lo), {
+            text: qr,
+            width: 150,  //가로
+            height: 150, //세로
+            colorDark: "#000000", //qr에서 어두운 색 (보통 검은색)
+            colorLight: "#ffffff", //qr에서 밝은 색 (보통 하얀색) colorDark 보다 옅어야한다.
+            correctLevel: QRCode.CorrectLevel.H //qr코드 오류복원능력 (L->M->Q->H)
+        });
+    };
+
+
+    function modal(id) {
+        var zIndex = 9999;
+        var modal = document.getElementById(id);
+
+        // 모달 div 뒤에 희끄무레한 레이어
+        var bg = document.createElement('div');
+        bg.setStyle({
+            position: 'fixed',
+            zIndex: zIndex,
+            left: '0px',
+            top: '0px',
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            // 레이어 색갈은 여기서 바꾸면 됨
+            backgroundColor: 'rgba(0,0,0,0.4)'
+        });
+        document.body.append(bg);
+
+        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        modal.querySelector('.close').addEventListener('click', function () {
+            bg.remove();
+            modal.style.display = 'none';
+            console.log("들어옴");
+
+        });
+
+        modal.setStyle({
+            position: 'fixed',
+            display: 'block',
+            display: 'flex',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+
+            // 시꺼먼 레이어 보다 한칸 위에 보이기
+            zIndex: zIndex + 1,
+
+            // div center 정렬
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            msTransform: 'translate(-50%, -50%)',
+            webkitTransform: 'translate(-50%, -50%)'
+        });
+    }
+
+    // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+    Element.prototype.setStyle = function (styles) {
+        for (var k in styles) this.style[k] = styles[k];
+        return this;
+    };
+
+
+    let count = 0;
+
+    $('.moreQR').on("click", function (e) {
+        modal('qrModal');
+        if (count == 0) {
+            var start = $(this).find('span')[0];
+            var end = $(this).find('span')[1];
+            console.log(start);
+            console.log(end);
+            makeQr(qrcode, $(start).attr('id'));
+            makeQr(qrcode2, $(end).attr('id'));
+
+            count++;
+        }
+
+    })
+
+
+</script>
+</html>

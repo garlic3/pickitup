@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pickitup.mapper.project.projectQna.ProjectQnaMapper">
+
+    <!-- 프로젝트 문의글 목록 조회  -->
+    <select id="getList" resultType="qnaDTO">
+    SELECT TPQ.NUM, TPQ.CONTENT, TPQ.UPDATE_DATE, TPQ.USER_NUM, TU.NICKNAME, TU.PROFILE_FILE_NAME, TU.PROFILE_UPLOAD_PATH
+    FROM TBL_PROJECT_QNA TPQ
+    JOIN TBL_USER TU
+    ON TPQ.USER_NUM = TU.NUM
+    WHERE TPQ.PROJECT_NUM = #{projectNum}
+    </select>
+
+    <!-- 프로젝트 문의글 등록   -->
+    <insert id="insert" parameterType="projectQnaVO">
+        INSERT INTO TBL_PROJECT_QNA
+        (NUM, CONTENT, REGIST_DATE, UPDATE_DATE, USER_NUM, PROJECT_NUM)
+        VALUES(SEQ_PROJECT_QNA.NEXTVAL, #{content}, SYSDATE , SYSDATE , #{userNum}, #{projectNum})
+    </insert>
+
+    <!-- 프로젝트 문의글 수정   -->
+    <update id="update" parameterType="projectQnaVO">
+        UPDATE TBL_PROJECT_QNA
+        SET
+        CONTENT = #{content}, UPDATE_DATE = SYSDATE
+        WHERE NUM = #{num}
+    </update>
+
+    <!-- 프로젝트 문의글 삭제   -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM TBL_PROJECT_QNA
+        WHERE NUM= #{num}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
